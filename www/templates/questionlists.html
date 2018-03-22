@@ -1,9 +1,13 @@
-<ion-view view-title="Playlists">
+<ion-view view-title="Questions">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon button-clear ion-android-add-circle" ng-click="openQuestion()"></button>
+  </ion-nav-buttons>
   <ion-content>
+
+      	<!--img ng-src={{question.image}} width="50" height="50"-->
+      	<!--
     <ion-list>
       <ion-item>
-      	<!--img ng-src={{question.image}} width="50" height="50"-->
-      	
         <button ng-click="playAudio(question.sound)">{{question.topic}}</button>
         <div class="row">
         	<div ng-repeat="word in words track by $index">
@@ -16,5 +20,21 @@
     	</div>
       </ion-item>
     </ion-list>
+    -->
+    <div class="card" style="padding: 10px; height: 120px;">
+      <div class="item item-icon-left" style="height: 100px;">
+        <i class = "icon ion-help-circled" style="color: orange; font-size: 50px"></i>
+        <div style="font-weight: bold; font-size: 40px; text-align: center; margin: 15px;">{{question.topic}}</div>
+      </div>
+       
+    </div>
+  
   </ion-content>
+
+    <ion-footer-bar class="bar-stable">
+          <button class = "button icon ion-checkmark-circled" style="color: green" ng-click="correct()"></button>
+          <button class = "button icon ion-close-circled" style="color: red" ng-click="wrong()"></button>
+          <button class = "button icon ion-arrow-right-c" style="color: blue" ng-click="next()"></button>
+    </ion-footer-bar>
+
 </ion-view>

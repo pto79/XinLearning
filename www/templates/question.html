@@ -1,0 +1,40 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">New Question</h1>
+    <button class="button" ng-click="closeQuestion()">Close</button>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="addQuestion()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Level</span>
+          <select ng-model="questionData.level">
+            <option>K2</option>
+            <option>K1</option>
+          </select>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Subject</span>
+          <select ng-model="questionData.subject">
+            <option>english</option>
+            <option>chinese</option>
+          </select>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Category</span>
+          <select ng-model="questionData.category">
+            <option>spelling</option>
+            <option>vocabulary</option>
+          </select>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Topic</span>
+          <input type="text" ng-model="questionData.topic">
+        </label>
+        <label class="item">
+          <button class="button button-block button-positive" type="submit">Add</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

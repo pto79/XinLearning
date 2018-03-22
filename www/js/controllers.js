@@ -2,13 +2,6 @@ angular.module('starter.controllers', [])
 
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
-  // With the new view caching in Ionic, Controllers are only called
-  // when they are recreated or on app start, instead of every page change.
-  // To listen for when this page is active (for example, to refresh data),
-  // listen for the $ionicView.enter event:
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
-
   // Form data for the login modal
   $scope.loginData = {};
 
@@ -41,49 +34,13 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('QuestionlistsCtrl', function($scope) {
-  $scope.questionlist = [
-    {
-      level: 'K2',
-      subject: 'english',
-      category: 'spelling',
-      topic: 'apple',
-      image: 'http://www.pngmart.com/files/1/Apple-Fruit.png',
-      sound: 'https://dictionary.cambridge.org/media/english-chinese-simplified/us_pron/a/app/apple/apple.mp3',
-      answer: 'apple',
-      weight: 5
-    },
-    {
-      level: 'K2',
-      subject: 'english',
-      category: 'spelling',
-      topic: 'orange',
-      image: 'http://www.pngmart.com/files/1/Apple-Fruit.png',
-      sound: 'https://dictionary.cambridge.org/media/english-chinese-simplified/us_pron/a/app/apple/apple.mp3',
-      answer: 'orange',
-      weight: 6
-    },
-    {
-      level: 'K2',
-      subject: 'english',
-      category: 'spelling',
-      topic: 'watermelon',
-      image: 'http://www.pngmart.com/files/1/Apple-Fruit.png',
-      sound: 'https://dictionary.cambridge.org/media/english-chinese-simplified/us_pron/a/app/apple/apple.mp3',
-      answer: 'watermelon',
-      weight: 10
-    },
-    {
-      level: 'K2',
-      subject: 'english',
-      category: 'spelling',
-      topic: 'banana',
-      image: 'http://www.pngmart.com/files/1/Apple-Fruit.png',
-      sound: 'https://dictionary.cambridge.org/media/english-chinese-simplified/us_pron/a/app/apple/apple.mp3',
-      answer: 'banana',
-      weight: 6
-    }
-  ];
+.controller('QuestionlistsCtrl', function($scope, $ionicModal) {
+  $scope.questionData = {};
+  $scope.questionData.weight = 10;
+  $scope.questionData.level = 'K2';
+  $scope.questionData.subject = 'english';
+  $scope.questionData.category = 'spelling';
+
 
     $scope.playAudio = function(sound) {
         var audio = new Audio(sound);
@@ -93,29 +50,94 @@ angular.module('starter.controllers', [])
     function generateQuestion() {
       var total_weight = 0;
       var random_pick = 0;
+
+      $scope.questionlist = JSON.parse(localStorage.getItem('questions'));
+      if($scope.questionlist == null || $scope.questionlist == undefined || $scope.questionlist == "")
+        $scope.questionlist = [];
+
+      console.log($scope.questionlist);
+
       for (var i = 0; i < $scope.questionlist.length; i++) {
-        total_weight += $scope.questionlist[i].weight;
+          total_weight += $scope.questionlist[i].weight;
       }
       console.log(total_weight);
       random_pick = Math.floor((Math.random() * total_weight) + 1);
       console.log(random_pick);
       for (var i = 0; i < $scope.questionlist.length; i++) {
-        random_pick -= $scope.questionlist[i].weight;
-        if(random_pick <= 0) {
-          $scope.question = $scope.questionlist[i];
-          $scope.words = [];
-          for (var i = 0; i < $scope.question.topic.length; i++) {
-            $scope.words.push($scope.question.topic[i]);
+
+          random_pick -= $scope.questionlist[i].weight;
+          if(random_pick <= 0) {
+            $scope.question = $scope.questionlist[i];
+            /*
+              $scope.words = [];
+              for (var i = 0; i < $scope.question.topic.length; i++) {
+                $scope.words.push($scope.question.topic[i]);
+              }
+              console.log($scope.words);
+            */
+            break;
           }
-          console.log($scope.words);
-          break;
-        }
+
       }
     }
 
     generateQuestion();
 
+    $scope.next = function() {
+      generateQuestion();
+    }
+
+
+  // Create the login modal that we will use later
+  $ionicModal.fromTemplateUrl('templates/question.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+  // Triggered in the login modal to close it
+  $scope.closeQuestion = function() {
+    $scope.modal.hide();
+  };
+
+  // Open the login modal
+  $scope.openQuestion = function() {
+    $scope.modal.show();
+  };
+
+  // Perform the login action when the user submits the login form
+  $scope.addQuestion = function() {
+    console.log('Doing login', $scope.questionData);
+    $scope.questionlist.push($scope.questionData);
+    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    generateQuestion();
+    $scope.modal.hide();
+  };
+
+  $scope.correct = function() {
+    if($scope.question.weight > 1)
+      $scope.question.weight -= 1;
+    $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
+    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+  }
+
+  $scope.wrong = function() {
+    $scope.question.weight += 1;
+    $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
+    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+  }
+
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
-});
+})
+
+.controller('BrowseCtrl', function($scope) {
+  $scope.$on('$ionicView.beforeEnter', function(e) {
+      $scope.questionlist = JSON.parse(localStorage.getItem('questions'));
+      if($scope.questionlist == null || $scope.questionlist == undefined || $scope.questionlist == "")
+        $scope.questionlist = [];
+  });
+})
+
+;

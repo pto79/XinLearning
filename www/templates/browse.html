@@ -1,5 +1,20 @@
-<ion-view view-title="Browse">
+<ion-view view-title="Question List">
   <ion-content>
-    <h1>Browse</h1>
+  	<div class="row">
+  		<div class="col">
+		    <ion-list>
+		    	<ion-item ng-if="question.subject == 'english'" ng-repeat="question in questionlist | orderBy : 'topic'">
+		    		{{question.topic}} ({{question.weight}})
+		    	</ion-item>
+		    </ion-list>
+		</div>
+  		<div class="col">
+		    <ion-list>
+		    	<ion-item ng-if="question.subject == 'chinese'" ng-repeat="question in questionlist | orderBy : 'topic'">
+		    		{{question.topic}} ({{question.weight}})
+		    	</ion-item>
+		    </ion-list>
+		</div>
+	</div>
   </ion-content>
 </ion-view>
