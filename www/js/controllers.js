@@ -119,12 +119,14 @@ angular.module('starter.controllers', [])
       $scope.question.weight -= 1;
     $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
     localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    generateQuestion();
   }
 
   $scope.wrong = function() {
     $scope.question.weight += 1;
     $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
     localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    generateQuestion();
   }
 
 })
