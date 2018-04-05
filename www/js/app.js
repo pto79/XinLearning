@@ -32,11 +32,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     controller: 'AppCtrl'
   })
 
-  .state('app.search', {
-    url: '/search',
+  .state('app.settings', {
+    url: '/settings',
     views: {
       'menuContent': {
-        templateUrl: 'templates/search.html'
+        templateUrl: 'templates/settings.html',
+        controller: 'SettingsCtrl'
       }
     }
   })

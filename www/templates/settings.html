@@ -1,0 +1,16 @@
+<ion-view view-title="Settings">
+  <ion-content>
+    <ion-list>
+	  <a class="item item-icon-right" ng-click="exportData()">
+	    Export data to clipboard<br>
+	    <i class="icon ion-archive" style="color: blue"></i>
+	  </a>
+
+	  <a class="item item-icon-right" ng-click="importData()">
+	    Import data from clipboard<br>
+	    <i class="icon ion-android-open" style="color: blue"></i>
+	  </a>
+	</ion-list>
+	<input type="hidden" value="" id="myClipboard">
+  </ion-content>
+</ion-view>

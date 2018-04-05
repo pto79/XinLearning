@@ -35,12 +35,6 @@ angular.module('starter.controllers', [])
 })
 
 .controller('QuestionlistsCtrl', function($scope, $ionicModal, questionService) {
-  $scope.questionData = {};
-  $scope.questionData.weight = 10;
-  $scope.questionData.level = 'K2';
-  $scope.questionData.subject = 'english';
-  $scope.questionData.category = 'vocabulary';
-
 
     $scope.playAudio = function(sound) {
         var audio = new Audio(sound);
@@ -99,6 +93,11 @@ angular.module('starter.controllers', [])
 
   // Open the login modal
   $scope.openQuestion = function() {
+    $scope.questionData = {};
+    $scope.questionData.weight = 10;
+    $scope.questionData.level = 'K2';
+    $scope.questionData.subject = 'english';
+    $scope.questionData.category = 'vocabulary';    
     $scope.modal.show();
   };
 
@@ -128,7 +127,47 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('SettingsCtrl', function($scope, $ionicModal, $ionicPopup, questionService) {
+
+  $ionicModal.fromTemplateUrl('templates/modal-import.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalImport = modal;
+  });
+
+  $scope.exportData = function() {
+    var copyText = document.getElementById("myClipboard");
+    copyText.type = "text";
+    copyText.value = questionService.export();
+    copyText.select();
+    document.execCommand("Copy");
+    alert("Asset data has copied to clipboard");
+    copyText.type = "hidden";
+  }
+
+  $scope.importData = function() {
+    $scope.importData.data = "";
+    $scope.modalImport.show();
+  }  
+
+  $scope.closeModalImport = function() {
+    $scope.modalImport.hide();
+  }
+
+  $scope.saveData = function(data) {
+    $ionicPopup.confirm({
+      title: 'Warning!',
+      template: 'Are you sure to overwrite the current question data?'
+    }).then(function(res){
+      if(res) {
+        questionService.import(data);
+        $scope.modalImport.hide();
+      }
+      else
+        console.log("never mind");
+    });
+  }
+
 })
 
 .controller('BrowseCtrl', function($scope, questionService) {
