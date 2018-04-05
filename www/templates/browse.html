@@ -3,15 +3,15 @@
   	<div class="row">
   		<div class="col">
 		    <ion-list>
-		    	<ion-item ng-if="question.subject == 'english'" ng-repeat="question in questionlist | orderBy : 'topic'">
-		    		{{question.topic}} ({{question.weight}})
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'english'" ng-repeat="question in questionlist | orderBy : 'topic'">
+		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
 		    	</ion-item>
 		    </ion-list>
 		</div>
   		<div class="col">
 		    <ion-list>
-		    	<ion-item ng-if="question.subject == 'chinese'" ng-repeat="question in questionlist | orderBy : 'topic'">
-		    		{{question.topic}} ({{question.weight}})
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'chinese'" ng-repeat="question in questionlist | orderBy : 'topic'">
+		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
 		    	</ion-item>
 		    </ion-list>
 		</div>

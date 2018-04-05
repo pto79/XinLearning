@@ -34,12 +34,12 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('QuestionlistsCtrl', function($scope, $ionicModal) {
+.controller('QuestionlistsCtrl', function($scope, $ionicModal, questionService) {
   $scope.questionData = {};
   $scope.questionData.weight = 10;
   $scope.questionData.level = 'K2';
   $scope.questionData.subject = 'english';
-  $scope.questionData.category = 'spelling';
+  $scope.questionData.category = 'vocabulary';
 
 
     $scope.playAudio = function(sound) {
@@ -51,10 +51,7 @@ angular.module('starter.controllers', [])
       var total_weight = 0;
       var random_pick = 0;
 
-      $scope.questionlist = JSON.parse(localStorage.getItem('questions'));
-      if($scope.questionlist == null || $scope.questionlist == undefined || $scope.questionlist == "")
-        $scope.questionlist = [];
-
+      $scope.questionlist = questionService.all();
       console.log($scope.questionlist);
 
       for (var i = 0; i < $scope.questionlist.length; i++) {
@@ -107,9 +104,9 @@ angular.module('starter.controllers', [])
 
   // Perform the login action when the user submits the login form
   $scope.addQuestion = function() {
-    console.log('Doing login', $scope.questionData);
-    $scope.questionlist.push($scope.questionData);
-    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    console.log($scope.questionData);
+    questionService.add($scope.questionData);
+    questionService.save();
     generateQuestion();
     $scope.modal.hide();
   };
@@ -117,15 +114,15 @@ angular.module('starter.controllers', [])
   $scope.correct = function() {
     if($scope.question.weight > 1)
       $scope.question.weight -= 1;
-    $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
-    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    questionService.set($scope.question);
+    questionService.save();
     generateQuestion();
   }
 
   $scope.wrong = function() {
     $scope.question.weight += 1;
-    $scope.questionlist[$scope.questionlist.indexOf($scope.question)] = $scope.question;
-    localStorage.setItem("questions", JSON.stringify($scope.questionlist));
+    questionService.set($scope.question);
+    questionService.save();
     generateQuestion();
   }
 
@@ -134,12 +131,15 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('BrowseCtrl', function($scope) {
+.controller('BrowseCtrl', function($scope, questionService) {
   $scope.$on('$ionicView.beforeEnter', function(e) {
-      $scope.questionlist = JSON.parse(localStorage.getItem('questions'));
-      if($scope.questionlist == null || $scope.questionlist == undefined || $scope.questionlist == "")
-        $scope.questionlist = [];
+      $scope.questionlist = questionService.all();
   });
+
+  $scope.remove = function(question) {
+    questionService.remove(question);
+    questionService.save();
+  }
 })
 
 ;
