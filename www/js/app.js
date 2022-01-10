@@ -25,7 +25,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
@@ -43,33 +43,34 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   })
 
   .state('app.browse', {
-      url: '/browse',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/browse.html',
-          controller: 'BrowseCtrl'
-        }
+    url: '/browse',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/browse.html',
+        controller: 'BrowseCtrl'
       }
-    })
-    .state('app.questionlists', {
-      url: '/questionlists',
-      views: {
-        'menuContent': {
-          templateUrl: 'templates/questionlists.html',
-          controller: 'QuestionlistsCtrl'
-        }
-      }
-    })
-
-  .state('app.single', {
-    url: '/playlists/:playlistId',
+    }
+  })
+	
+  .state('app.questionlist', {
+    url: '/questionlist/:subjectId',
     views: {
       'menuContent': {
         templateUrl: 'templates/questionlist.html',
-        controller: 'PlaylistCtrl'
+        controller: 'QuestionlistCtrl'
+      }
+    }
+  })
+
+  .state('app.subjects', {
+    url: '/subjects',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/subjects.html',
+        controller: 'SubjectsCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/questionlists');
+  $urlRouterProvider.otherwise('/app/subjects');
 });
