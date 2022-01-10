@@ -1,16 +1,9 @@
-<ion-view view-title="Question List {{questionlist.length}}">
+<ion-view view-title="Question List ({{questionlist.length}})">
   <ion-content>
   	<div class="row">
   		<div class="col">
 		    <ion-list>
-		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'english'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
-		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
-		    	</ion-item>
-		    </ion-list>
-		</div>
-  		<div class="col">
-		    <ion-list>
-		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'chinese'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'English'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
 		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
 		    	</ion-item>
 		    </ion-list>
@@ -19,7 +12,25 @@
   	<div class="row">
   		<div class="col">
 		    <ion-list>
-		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'math'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'Chinese'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
+		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
+		    	</ion-item>
+		    </ion-list>
+		</div>
+	</div>
+  	<div class="row">
+  		<div class="col">
+		    <ion-list>
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'Math'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
+		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
+		    	</ion-item>
+		    </ion-list>
+		</div>
+	</div>
+  	<div class="row">
+  		<div class="col">
+		    <ion-list>
+		    	<ion-item class= "item-icon-right" ng-if="question.subject == 'Science'" ng-repeat="question in questionlist | orderBy : 'topic' track by $index">
 		    		{{question.topic}} ({{question.weight}}) <i class = "icon ion-trash-a" ng-click="remove(question)"></i>
 		    	</ion-item>
 		    </ion-list>

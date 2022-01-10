@@ -9,18 +9,24 @@
         <label class="item item-input">
           <span class="input-label">Level</span>
           <select ng-model="questionData.level">
-            <option>K2</option>
-            <option>K1</option>
+            <option>P1</option>
+            <option>P2</option>
+            <option>P3</option>
+            <option>P4</option>
+            <option>P5</option>
+            <option>P6</option>
           </select>
         </label>
         <label class="item item-input">
           <span class="input-label">Subject</span>
           <select ng-model="questionData.subject">
-            <option>english</option>
-            <option>chinese</option>
-            <option>math</option>
+            <option>Chinese</option>
+            <option>English</option>
+            <option>Math</option>
+            <option>Science</option>
           </select>
         </label>
+		<!--
         <label class="item item-input">
           <span class="input-label">Category</span>
           <select ng-model="questionData.category">
@@ -29,9 +35,30 @@
             <option>addition</option>
           </select>
         </label>
+		-->
         <label class="item item-input">
           <span class="input-label">Topic</span>
           <input type="text" ng-model="questionData.topic">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Selection1</span>
+          <input type="text" ng-model="questionData.selection1">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Selection2</span>
+          <input type="text" ng-model="questionData.selection2">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Selection3</span>
+          <input type="text" ng-model="questionData.selection3">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Selection4</span>
+          <input type="text" ng-model="questionData.selection4">
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Answer</span>
+          <input type="text" ng-model="questionData.answer">
         </label>
         <label class="item">
           <button class="button button-block button-positive" type="submit">Add</button>
